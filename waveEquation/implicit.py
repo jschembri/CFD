@@ -8,7 +8,7 @@ from pylab import *
 
 import subprocess
 
-data= subprocess.Popen('./analytic 2', shell=True, stdout=subprocess.PIPE,stderr=subprocess.PIPE,stdin=subprocess.PIPE).communicate()
+data= subprocess.Popen('./implicit 2.5', shell=True, stdout=subprocess.PIPE,stderr=subprocess.PIPE,stdin=subprocess.PIPE).communicate()
 data = data[0].split(",")
 
 print data
@@ -22,11 +22,11 @@ for i in range(0,len(y_values)):
    y_values[i] = float(y_values[i])
 
 # Calculating the Euler Explicit equations
-x_ee_values = data[data.index('X Euler Value Start')+1:data.index("X Euler Value End")]
+x_ee_values = data[data.index('X Implicit Value Start')+1:data.index("X Implicit Value End")]
 for i in range(0,len(x_values)):
    x_ee_values[i] = float(x_ee_values[i])
 
-y_ee_values = data[data.index('Y Euler Value Start')+1:data.index("Y Euler Value End")]
+y_ee_values = data[data.index('Y Implicit Value Start')+1:data.index("Y Implicit Value End")]
 for i in range(0,len(y_values)):
    y_ee_values[i] = float(y_ee_values[i])
 
@@ -35,7 +35,7 @@ for i in range(0,len(y_values)):
 
 
 plt.plot(x_values, y_values, mfc='red', ms=12, label='Analytical')
-plt.plot(x_ee_values, y_ee_values, mfc='blue', ms=12, label='Euler')
+plt.plot(x_ee_values, y_ee_values, mfc='blue', ms=12, label='Implicit')
 plt.xlabel('X Values')
 plt.ylabel('Y Values')
 plt.title('First Plot')

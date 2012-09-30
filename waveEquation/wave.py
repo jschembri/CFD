@@ -8,7 +8,7 @@ from pylab import *
 
 import subprocess
 
-data= subprocess.Popen('./analytic 2', shell=True, stdout=subprocess.PIPE,stderr=subprocess.PIPE,stdin=subprocess.PIPE).communicate()
+data= subprocess.Popen('./upwind 1', shell=True, stdout=subprocess.PIPE,stderr=subprocess.PIPE,stdin=subprocess.PIPE).communicate()
 data = data[0].split(",")
 
 print data

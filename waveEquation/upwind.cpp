@@ -9,7 +9,7 @@ float c = 1; //wave speed in m/s
 // float t = 1; //time in seconds
 
 float x_lower = -1; //lower limit 
-float x_higher = 7; //highest limit of x
+float x_higher = 4; //highest limit of x
 int x_spaces = 1000; // number of spaces between x_lower and x_higher
 
 //for the discrete points
@@ -96,8 +96,10 @@ int main(int argc, char **argv){
       for (int i=0; i<=x_spaces;i++){
          if (i==0){
             u_new_values[i] = 0;   
+         } else if (i==x_spaces){
+            u_new_values[i] = 0; 
          }else{
-            u_new_values[i] = u_old_values[i-1];
+            u_new_values[i] = u_old_values[i] - c*delta_t/(2*delta_x)*(u_old_values[i+1]-u_old_values[i-1])+c*delta_t/(2*delta_x)*(u_old_values[i+1]-2*u_old_values[i]+u_old_values[i-1]);
          }
       }
       
