@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd ~/CFD
+
+echo -e "\nBacking up CFD repos \n"
+git push origin master
+
+cd /media/LaCie/CFD/
+git pull origin master
+
+cd /media/My\ Book/CFD
+git pull origin master
