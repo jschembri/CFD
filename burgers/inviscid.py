@@ -25,8 +25,23 @@ y_values = data[data.index('Y Lax Value Start')+1:data.index("Y Lax Value End")]
 for i in range(0,len(y_values)):
    y_values[i] = float(y_values[i])
 
+data= subprocess.Popen('./ImplicitInviscid %s' % calculated_time, shell=True, stdout=subprocess.PIPE,stderr=subprocess.PIPE,stdin=subprocess.PIPE).communicate()
+data = data[0].split(",")
+
+
+x_implicit_values = data[data.index('X Implicit Value Start')+1:data.index("X Implicit Value End")]
+for i in range(0,len(x_implicit_values)):
+   x_implicit_values[i] = float(x_implicit_values[i])
+
+y_implicit_values = data[data.index('Y Implicit Value Start')+1:data.index("Y Implicit Value End")]
+for i in range(0,len(y_implicit_values)):
+   y_implicit_values[i] = float(y_implicit_values[i])
+
+
+
 
 plt.plot(x_values, y_values, mfc='red', ms=12, label='Lax')
+plt.plot(x_implicit_values, y_implicit_values, mfc='blue', ms=12, label='Implicit')
 plt.xlabel('X Values')
 plt.ylabel('Y Values')
 plt.title('First Plot')
