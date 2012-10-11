@@ -48,28 +48,6 @@ int main(int argc, char **argv){
       y_values[i] = func(x_values[i]-c*t);
    }
 
-   for (int j=0; j<=x_spaces;j++){
-      if (j==0){
-         cout << "X Analytical Value Start" << "," << x_values[j] << ",";
-      }else if (j==x_spaces){
-         cout << x_values[j] << "," << "X Analytical Value End" << ",";
-      }else{
-         cout << x_values[j] << ",";
-      }
-   
-   } 
-
-   for (int k=0; k<=x_spaces;k++){
-      if (k==0){
-         cout << "Y Analytical Value Start" << "," << y_values[k] << ",";
-      }else if (k==x_spaces){
-         cout << y_values[k] << "," << "Y Analytical Value End" << ",";
-      }else{
-         cout << y_values[k] << ",";
-      }
-   
-   } 
-
 // The next section deals with the euler explicit method
 
    float time = 0;

@@ -47,28 +47,6 @@ int main(int argc, char **argv){
       y_values[i] = func(x_values[i]-c*t);
    }
 
-
-   for (int j=0; j<=x_spaces;j++){
-      if (j==0){
-         cout << "X Analytical Value Start" << "," << x_values[j] << ",";
-      }else if (j==x_spaces){
-         cout << x_values[j] << "," << "X Analytical Value End" << ",";
-      }else{
-         cout << x_values[j] << ",";
-      }
-   
-   } 
-
-   for (int k=0; k<=x_spaces;k++){
-      if (k==0){
-         cout << "Y Analytical Value Start" << "," << y_values[k] << ",";
-      }else if (k==x_spaces){
-         cout << y_values[k] << "," << "Y Analytical Value End" << ",";
-      }else{
-         cout << y_values[k] << ",";
-      }
-   
-   } 
    MatrixXf A = MatrixXf::Zero(x_spaces+1,x_spaces+1);
    VectorXf b(x_spaces+1,1);
    VectorXf u_new(x_spaces+1,1);
@@ -137,8 +115,8 @@ int main(int argc, char **argv){
    } 
 
 
-   cout << "Here is the matrix A:\n" << A << endl;
-   cout << "Here is the vector b:\n" << b << endl;
+//   cout << "Here is the matrix A:\n" << A << endl;
+//   cout << "Here is the vector b:\n" << b << endl;
 
 
    return 0; 
