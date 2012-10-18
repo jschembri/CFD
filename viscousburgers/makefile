@@ -16,3 +16,12 @@ implicit:
 clean:
 	rm explicit explicit.o
 
+FTCS:
+	$(CXX) $(CXXFLAGS) -c FTCS.cpp constants.cpp
+	$(CXX) $(CXXFLAGS) -o FTCS FTCS.o constants.o
+
+Mac:
+	$(CXX) $(CXXFLAGS) -c MacCormack.cpp constants.cpp
+	$(CXX) $(CXXFLAGS) -o MacCormack MacCormack.o constants.o
+
+

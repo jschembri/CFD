@@ -7,15 +7,7 @@
 using namespace std;
 using namespace Eigen;
 
-// global variables
-float x_lower = -1; //lower limit 
-float x_higher = 4; //highest limit of x
-int x_spaces = 100; // number of spaces between x_lower and x_higher
 
-// Convergence criteria
-float delta_x = (x_higher-x_lower)/x_spaces ;
-float delta_t = 0.1; //seconds
-float omega = 1;
 
 int main(int argc, char **argv){
 
@@ -28,7 +20,7 @@ int main(int argc, char **argv){
 
 	for (int i=0; i<=x_spaces;i++){
 	   x_values[i] = x_lower + (x_higher-x_lower)/x_spaces * i;
-	   u_old[i] = delta(x_values[i],0) - delta(x_values[i],1);
+	   u_old[i] = func(x_values[i]);
 	}
 
 
