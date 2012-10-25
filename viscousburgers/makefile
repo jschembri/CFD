@@ -6,7 +6,7 @@ answer:
 	$(CXX) $(CXXFLAGS) -o answer answer.o constants.o
 
 explicit:
-	$(CXX) $(CXXFLAGS) -c explicit.cpp explicit.cpp
+	$(CXX) $(CXXFLAGS) -c explicit.cpp constants.cpp
 	$(CXX) $(CXXFLAGS) -o explicit explicit.o constants.o
 
 implicit:

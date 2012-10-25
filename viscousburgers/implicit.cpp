@@ -7,28 +7,18 @@
 using namespace std;
 using namespace Eigen;
 
-// global variables
-float x_lower = -1; //lower limit 
-float x_higher = 4; //highest limit of x
-int x_spaces = 100; // number of spaces between x_lower and x_higher
 
-// Convergence criteria
-float delta_x = (x_higher-x_lower)/x_spaces ;
-float delta_t = 0.1; //seconds
-float omega = 1;
 
 int main(int argc, char **argv){
 
    double t = atof(argv[1]);
    float time = 0;
    float x_values [x_spaces+1];
-   //float u_values [x_spaces+1];
    float u_old[x_spaces+1];
-	float correction_factor;
 
 	for (int i=0; i<=x_spaces;i++){
 	   x_values[i] = x_lower + (x_higher-x_lower)/x_spaces * i;
-	   u_old[i] = delta(x_values[i],0) - delta(x_values[i],1);
+	   u_old[i] = initial_conditions(x_values[i]);
 	}
 
 
@@ -42,33 +32,21 @@ int main(int argc, char **argv){
 
       for (int i=0;i<=x_spaces;i++){
          if (i-1 >= 0){
-            A(i,i-1) = -delta_t/(4*delta_x)*(u_old[i-1]);
+            A(i,i-1) = -u_old[i-1]/(4.0*delta_x)-1.0*meu/(2*pow(delta_x,2));
          }
 
          if (i+1 <= x_spaces){
-            A(i,i+1) = delta_t/(4*delta_x)*(u_old[i+1]); 
+            A(i,i+1) = u_old[i+1]/(4.0*delta_x)-1.0*meu/(2*pow(delta_x,2));
          }
-         A(i,i) = 1;
-
-			if (i-2<0){
-				correction_factor = -omega/8*(u_old[i+2] -4*u_old[i+1]+6*u_old[i]);
-			}else if (i-1<0){
-				correction_factor = -omega/8*(u_old[i+2] -4*u_old[i+1]+6*u_old[i]-4*u_old[i-1]);
-			}else if (i+1>x_spaces){
-				correction_factor = -omega/8*(-4*u_old[i+1]+6*u_old[i]-4*u_old[i-1]+u_old[i-2]);
-			}else if (i+2>x_spaces){
-				correction_factor = -omega/8*(6*u_old[i]-4*u_old[i-1]+u_old[i-2]);
-			}else{
-				correction_factor = -omega/8*(u_old[i+2] -4*u_old[i+1]+6*u_old[i]-4*u_old[i-1]+u_old[i-2]);
-			}
+         A(i,i) = 1.0/delta_t+2.0*meu/pow(delta_x,2);
 
 
          if (i-1 < 0){
-         	b(i) = -delta_t/(2*delta_x)*(pow(u_old[i+1],2)/2-0)-delta_t/(4*delta_x)*0 + u_old[i]+delta_t/(4*delta_x)*pow(u_old[i+1],2)+correction_factor;
+         	b(i) = 1;
 			}else if (i+1>x_spaces){
-				b(i) = -delta_t/(2*delta_x)*(0-pow(u_old[i-1],2)/2)-delta_t/(4*delta_x)*pow(u_old[i-1],2) + u_old[i]+delta_t/(4*delta_x)*0+correction_factor;
+				b(i) = 1;
 			}else{
-         	b(i) = -delta_t/(2*delta_x)*(pow(u_old[i+1],2)/2-pow(u_old[i-1],2)/2)-delta_t/(4*delta_x)*pow(u_old[i-1],2) + u_old[i]+delta_t/(4*delta_x)*pow(u_old[i+1],2)+correction_factor;
+         	b(i) = u_old[i] -1.0/(2.0*delta_x)*(pow(u_old[i+1],2)/2.0-pow(u_old[i-1],2.0))+1.0/(4*delta_x)*(pow(u_old[i+1],2)+pow(u_old[i-1],2))+meu/(2.0*pow(delta_x,2))*(u_old[i+1]-u_old[i]+u_old[i-1]);
 			}
      
       }
@@ -86,39 +64,12 @@ int main(int argc, char **argv){
 
   }    
 
-		for (int j=0; j<=x_spaces;j++){
-		   if (j==0){
-		      cout << "X Implicit Value Start" << "," << x_values[j] << ",";
-		   }else if (j==x_spaces){
-		      cout << x_values[j] << "," << "X Implicit Value End" << ",";
-		   }else{
-		      cout << x_values[j] << ",";
-		   }
-		
-		} 
-
-		for (int k=0; k<=x_spaces;k++){
-		   if (k==0){
-		      cout << "Y Implicit Value Start" << "," << u_old[k] << ",";
-		   }else if (k==x_spaces){
-		      cout << u_old[k] << "," << "Y Implicit Value End"<<","<<endl;
-		   }else{
-		      cout << u_old[k] << ",";
-		   }
-	  
-}
-
  
  
-
-
-
-/*
    cout << "Here is the matrix A:\n" << A << endl;
    cout << "Here is the vector b:\n" << b << endl;
-   cout << "A(0,1)"<<endl;
-   cout << A(0,1)<< endl;
-*/
+
+
 
    return 0; 
 

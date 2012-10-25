@@ -38,33 +38,39 @@ int main(int argc, char **argv){
 	   u_values_old[i] = func(x_values[i]);
 	}
 
-
+	//cout << "Data" << endl;
+	//cout << "Delta T is: "<< delta_t <<", delta x: " << delta_x << " delt/delx: " << delta_t/delta_x << endl;
+	//cout <<"Time|x_space|x_value|u_old|Fplus|Fminus|Aplus|Aminus" <<endl;
 	while (t <= time+delta_t){
 		u_values_old[0] = 0;
 		u_values_old[x_spaces] = 1;
+		u_values[0] = 0;
+		u_values[x_spaces] = 1;
 
 		// Implementin the Lax Method
-		for (int i=0;i<=x_spaces;i++){
-			F = pow(u_values_old[i],2)/2.0;
+		for (int i=1;i<x_spaces;i++){
+			F = 0.5*pow(u_values_old[i],2);
 
-			if (i-1<0){
-				FplusHalf = pow(u_values_old[i+1],2)/2.0;
-				FminusHalf = 0.0;	
-				AplusHalf = (u_values_old[i]+u_values_old[i+1])/2.0; 	
-				AminusHalf = (u_values_old[i]+0)/2.0; 
-			}else if (i+1>x_spaces){
-				FplusHalf = pow(1.0,2)/2.0;
-				FminusHalf = pow(u_values_old[i-1],2)/2.0;	
-				AplusHalf = (u_values_old[i]+1.0)/2.0; 	
-				AminusHalf = (u_values_old[i]+u_values_old[i-1])/2.0;
-			}else{
-				FplusHalf = pow(u_values_old[i+1],2)/2.0;
-				FminusHalf = pow(u_values_old[i-1],2)/2.0;	
+//			if (i-1<0){
+//				FplusHalf = pow(u_values_old[i+1],2)/2.0;
+//				FminusHalf = 0.0;	
+//				AplusHalf = (u_values_old[i]+u_values_old[i+1])/2.0; 	
+//				AminusHalf = (u_values_old[i]+0)/2.0; 
+//			}else if (i+1>x_spaces){
+//				FplusHalf = pow(1.0,2)/2.0;
+//				FminusHalf = pow(u_values_old[i-1],2)/2.0;	
+//				AplusHalf = (u_values_old[i]+1.0)/2.0; 	
+//				AminusHalf = (u_values_old[i]+u_values_old[i-1])/2.0;
+//			}else{
+				FplusHalf = 0.5*pow(u_values_old[i+1],2);
+				FminusHalf = 0.5*pow(u_values_old[i-1],2);	
 				AplusHalf = (u_values_old[i]+u_values_old[i+1])/2.0; 	
 				AminusHalf = (u_values_old[i]+u_values_old[i-1])/2.0; 
 
-			}
-				u_values[i] =  u_values_old[i] - delta_t/(2.0*delta_x)*(FplusHalf - FminusHalf) + 0.5*pow((delta_t/delta_x),2)*(AplusHalf*(FplusHalf-F) - AminusHalf*(F-FminusHalf));
+			//}
+				u_values[i] =  u_values_old[i] - delta_t/(delta_x)*(FplusHalf - FminusHalf)/2.0 + 0.5*pow(delta_t/delta_x,2)*
+(AplusHalf*(FplusHalf-F) - AminusHalf*(F-FminusHalf));
+			//cout <<t<<"|"<<i<<"|"<<"|"<<x_values[i]<<"|"<<u_values[i]<<"|"<<FplusHalf<<"|"<<FminusHalf<<"|"<<AplusHalf<<"|"<<AminusHalf<<endl;
 		}
 
 

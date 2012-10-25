@@ -1,9 +1,9 @@
 // This file sets all the constants of the heat equation.  We assume a two-dimensional rectangle with constant temperature sides.  The rectangle is originally heated up to a temperature
 
 float c = 1; //wave speed in m/s
-float x_lower = -1; //lower limit 
-float x_higher = 7; //highest limit of x
-int x_spaces = 500; // number of spaces between x_lower and x_higher
+float x_lower = 0; //lower limit 
+float x_higher = 5; //highest limit of x
+int x_spaces = 100; // number of spaces between x_lower and x_higher
 float v_Neumann = 0.5;
 float delta_x = (x_higher-x_lower)/x_spaces ;
 float delta_t = v_Neumann * delta_x / c;

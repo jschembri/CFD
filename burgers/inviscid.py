@@ -53,14 +53,14 @@ for i in range(0,len(y_lw_values)):
 
 
 
-plt.plot(x_values, y_values, mfc='red', ms=12, label='Lax',linewidth=4)
+plt.plot(x_values, y_values, mfc='red', ms=12, label='Answer',linewidth=4)
 plt.plot(x_implicit_values, y_implicit_values, mfc='blue', ms=12, label='Implicit',linewidth=4)
 plt.plot(x_lax_values, y_lax_values, mfc='red', ms=12, label='Lax',linewidth=4)
 plt.plot(x_lw_values, y_lw_values, mfc='red', ms=12, label='Lax-Wendroff',linewidth=4)
 plt.xlabel('X Values')
 plt.ylabel('Y Values')
 plt.title('Burger\'s Inviscid')
-plt.axis([-0.5,4,-0.5,1.5])
+plt.axis([0,4,0,1.5])
 legend()
 show()
 

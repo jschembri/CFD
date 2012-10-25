@@ -14,6 +14,10 @@ extern double meu ;
 extern double ReL;
 extern double c;
 
+extern double ustart;
+extern double uend;
+
+
 extern double x_lower; //lower limit 
 extern double x_higher; //highest limit of x
 extern int x_spaces; // number of spaces between x_lower and x_higher

@@ -10,17 +10,17 @@ using namespace std;
 
 double u0 = 1.0;
 double c = 1.0;
-double L = 1.0;
-double meu = 2.0;
+double L = 10.0;
+double meu = 1.0;
 double ReL=u0*L/meu;
 
-double x_lower = -0.1; //lower limit 
-double x_higher = L+0.1; //highest limit of x
-int x_spaces = 100; // number of spaces between x_lower and x_higher
+double x_lower = 0; //lower limit 
+double x_higher = 10; //highest limit of x
+int x_spaces = 10; // number of spaces between x_lower and x_higher was at 100 and works
 
 //for the discrete points
 double delta_x = (x_higher-x_lower)/x_spaces ;
-double delta_t = 0.0000005; //seconds
+double delta_t = 0.001; //seconds
 
 double ReDeltaX = c*delta_x /meu;
 double r = meu* delta_t / pow(delta_x,2);
@@ -64,9 +64,12 @@ int delta(float x, float a){
 }
 
 double initial_conditions(double x){
-	return u0*(1 - delta(x,L));
+	return delta(x,0);
 
 }
+
+double ustart = initial_conditions(x_lower);
+double uend = initial_conditions(x_higher);
 
 void printarray (double arg[], int length, string input) {
   for (int i=0; i<length; i++)
